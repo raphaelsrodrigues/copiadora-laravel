@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use DB;
 use App\Models\Acessos;
 use App\Models\ControleCaixa;
+use App\Models\Custos;
 use App\Models\Calendar;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use Session;
 
 class CopiadoraController extends Controller
 {
@@ -18,11 +20,15 @@ class CopiadoraController extends Controller
      *
      * @return Response
      */
-    public function administrador()
+    public function administrador(Request $request)
     {
+        $admin = $this->findadmin();
+        
+        if(isset($admin) && $admin === 1) {
         
         //The administrador view 
         
+       
     //Get all users
     $acessos = Acessos::all();
     
@@ -36,6 +42,12 @@ class CopiadoraController extends Controller
         ['acessos' => $acessos,
         'controles' => $controles,
         'calendar' => $calendar]);
+        
+        } else {
+            
+            return redirect('/status');
+            
+        }
    
     }
     
@@ -45,7 +57,7 @@ class CopiadoraController extends Controller
      *
      * @return Response
      */
-    public function index()
+    public function index(Request $request)
     {
         return view('copiadora');
         
@@ -77,8 +89,6 @@ class CopiadoraController extends Controller
      * @return Response
      */
     public function acesso() {
-            
-        session_start();
         
         if (isset($_POST['user']) && isset($_POST['pass'])){
                 
@@ -86,24 +96,20 @@ class CopiadoraController extends Controller
             $mypassword=$_REQUEST['pass'];
             
             $users = DB::select("SELECT * FROM Acesso WHERE Nome='$myusername' and Senha='$mypassword'");
-            
+        
             if(count($users)===1){
-                
-                $hr = date(" H ");
-                if($hr >= 12 && $hr<18) {
-                $resp = "Boa tarde";}
-                else if ($hr >= 0 && $hr <12 ){
-                $resp = "Bom dia";}
-                else {
-                $resp = "Boa noite";}
                     
-                    $checkdate = DB::select('SELECT * FROM ControleCaixa WHERE Data="'.$this->diadehoje().'"');
+                Session::put('user', $myusername);
+                
+            $checkdate = DB::select('SELECT * FROM ControleCaixa WHERE Data="'.$this->diadehoje().'"');
             
             if(count($checkdate)===1){
     
         return $this->status();
             
             } else {
+                
+                //!! Muito Importante -- Inserting date into database !!//
                 
                 $checkdate = DB::select('INSERT INTO ControleCaixa (Data)
                 VALUES ("'.$this->diadehoje().'")');
@@ -129,6 +135,11 @@ class CopiadoraController extends Controller
      */
     public function status()
     {
+        if (!Session::has('user')) {
+            
+            return view('acesso', ['situation' =>'No Session Values.']);
+            
+        } else {
         
          $hr = date(" H ");
          if($hr >= 12 && $hr<18) {
@@ -241,34 +252,41 @@ class CopiadoraController extends Controller
         </table> ';
         
         }}}}
+        
+        ////Display list of costs
 
+       $custos = Custos::where('Date', '=', $this->diadehoje())->get();
+       
 
-         if (isset($_POST['user'])){
-             
-              $myusername=$_REQUEST['user'];
-             
-             if($_POST['user'] === "Cida") {
+        $myusername = Session::get('user');
+        
+        $admin = $this->findadmin();
+        
+        if($admin === 1) {
                 
-            $bom = '<a href="http://quickstart.local/administrador">Clique aqui para Analisar Tabelas</a>';
+            $greeting = '<a href="http://quickstart.local/administrador">Clique aqui para Analisar Tabelas</a>';
             return view('status',
             
-            ['situation' => $resp. ' ' .$myusername. ',',
-             'bom' => $bom,
-             'status' => $status]);
+            ['data' => $this->diadehoje(),
+            'situation' => $resp. ' ' .$myusername. ',',
+             'greeting' => $greeting,
+             'status' => $status,
+             'custos' => $custos]);
             
-            } else {
-                
-        $bom = $this->diadehoje();
+    } else {
+            
+        $greeting = "";
+        
         return view('status',
+        ['data' => $this->diadehoje(),
+         'situation' => $resp. ' ' .$myusername. ',',
+         'greeting' => $greeting,
+         'status' => $status,
+         'custos' => $custos]);
             
-            ['situation' => $resp. ' ' .$myusername. ',',
-             'bom' => $bom,
-             'status' => $status]);
-             }
-} else {
-        return view('status', ['status' => $status]);  
-}
-
+        
+        }
+    }
 }
     
     /**
@@ -489,7 +507,7 @@ return view('inserirsaida'); }
                 
                 $result = "<h3 align='center'>" .$dataid. "</h3>
                 <br>
-                <p>Não há dados para este dia. Sorry: (</p>";
+                <p>Hmmm... Essa data, só com a mãe Dináh.</p>";
                 
                 return $result;
             }
@@ -576,9 +594,32 @@ return view('inserirsaida'); }
      
     }
     
-    public function errors($id)
+    public function errors(Request $request, $mensagem = "Nao ha mensagens")
     {
-        return view('errors');
+        
+
+        Session::forget('user');
+        
+        $data = $request->session()->all();
+        
+        $pathname = $request->path();
+        $urlname = $request->url();
+        
+        if ($request->isMethod('post')) {
+    echo $name;
+            
+        }  else {
+        echo "<hr>";
+}
+        return view('errors', [
+        
+        'mensagem' => $mensagem,
+        'pathname' => $pathname,
+        'urlname' => $urlname,
+        'data' => $data
+        
+       ]);
+   
     }
     
     public function diadehoje()
@@ -606,6 +647,86 @@ return view('inserirsaida'); }
         $data = $dia.'/'.$mes_extenso["$mes"].'/'.$ano;
                     
         return $data;
+    }
+    
+        public function findadmin()
+    {
+        $myusername = Session::get('user');        
+        $sqls = Acessos::where('Nome', '=', $myusername)->take(1)->get();
+        foreach ($sqls as $sql) {
+        $admin = $sql->UserAdmin;}
+    
+        if (isset($admin)) {
+            
+             return $admin;
+            
+        } else {
+            
+            $admin = null;
+            return $admin;
+            
+        }
+        
+       
+    }
+    
+    //Adicionar Custos
+    
+        public function custos()
+    {
+        
+        if (!empty($_POST['custo']) && !empty($_POST['value'])){
+            
+            $data = $this->diadehoje();    
+            $newcost=$_REQUEST['custo'];
+            $newvalue=$_REQUEST['value'];
+
+        $user = new Custos;
+        
+        $user->Date = $data;
+        
+        $user->Description = $newcost;
+        
+        $user->Value = $newvalue;
+        
+        $user->save();
+
+    } else {
+        
+        $resultado = "Nenhum valor de custo inserido.";
+        return $resultado;
+    }
+    }
+    
+    //Clear Sessions
+    
+     public function sair()
+    {
+        
+        Session::flush();
+        return view('copiadora');
+     
+    }
+    
+    public function allcosts()
+    {
+        
+    $custos = Custos::orderBy('id', 'desc')->get();
+
+        return view('allcosts',
+        ['custos' => $custos]);
+        
+     
+    }
+     
+    public function alldays()
+    {
+        
+    $controles = ControleCaixa::orderBy('IDda', 'desc')->get();
+
+        return view('alldays',
+        ['controles' => $controles]);
+     
     }
     
 }
