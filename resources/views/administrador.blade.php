@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 @section('content')
 
     <div class="container">
@@ -56,14 +56,14 @@
                 
                 echo "<td> ".$acesso->Nome." </td>
                 <td> ".$acesso->Senha." </td>   
-                <td align='middle'><a href='http://quickstart.local/excluir/".$acesso->Nome."'>x</a>"; }
+                <td align='middle'><a href='http://quickstart.local/excluir/".$acesso->Nome."' title='Excluir ".$acesso->Nome." da Tabela de Acesso'>x</a>"; }
                 ?>
                 
                 </tbody>
                 </table>
                 
                 <br>
-                <a href="http://quickstart.local/adicionar"><p>Adicionar Acesso (+)</p></a>
+                <a href="http://quickstart.local/adicionar" title="Adicionar Acesso"><p>Adicionar Acesso (+)</p></a>
                 
             </div>
             
@@ -112,6 +112,21 @@
         </div>
     </div>
     
+    <br>
+    
+    <hr>
+    
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+    
+ <a href='http://quickstart.local/alldays'><p>  Lista completa de Abertura e Fechamento do Caixa </p> </a>
+   
+  <a href="http://quickstart.local/allcosts"><p>   Lista completa de Custos </p> </a>
+       </div>
+            
+        </div>
+    </div>
     <hr>
 
 
