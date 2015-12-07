@@ -1,4 +1,4 @@
-@extends('layouts.master')
+@extends('layouts.master2')
 @section('content')
 
     
@@ -12,7 +12,7 @@
     <input type="text" name="user2" placeholder="Nome 2" required>
     <input type="password" name="pass2" placeholder="Senha 2" required>
     <br>
-     <input type="text" name="valorentrada" placeholder="Valor Abertura do dia" required>
+     <input type="text" name="valorentrada" placeholder="Valor de Abertura" required>
     <input type="submit" name="login" class="login login-submit" value="Concluir">
     <input type="hidden" name="_token" value="{{ csrf_token() }}">
   </form>
