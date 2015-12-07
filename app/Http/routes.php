@@ -53,8 +53,16 @@ Route::match(['get', 'post'], '/administrador/check', 'CopiadoraController@viewd
 
 Route::match(['get', 'post'], '/adicionar', 'CopiadoraController@create');
 
+Route::match(['get', 'post'], '/custos', 'CopiadoraController@custos');
+
 Route::get('/excluir/{name}', 'CopiadoraController@destroy');
 
 Route::get('/editar/{name}', 'CopiadoraController@edit');
 
 Route::get('/mensagem', 'CopiadoraController@errors');
+
+Route::get('/flush', 'CopiadoraController@sair');
+
+Route::get('/allcosts', 'CopiadoraController@allcosts');
+
+Route::get('/alldays', 'CopiadoraController@alldays');
