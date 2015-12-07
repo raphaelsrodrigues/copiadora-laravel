@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Copiadora Montes Claros</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <meta name="description" content="Copiadora Montes Claros é a mais tradicional copiadora da cidade. 
+    Cópias, plastificação, encadernação, reforma de livros e documentos, envio de fax, impressão e digitalização 
+    de documentos.">
+
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,500,700" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+      <link rel='stylesheet' href='http://codepen.io/assets/libs/fullpage/jquery-ui.css'>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="style/style.css">
+    
+    
+
+    <script>
+        $(function () {
+            $('#task-name').focus();
+        });
+    </script>
+    
+    
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    
+    <!-- Latest compiled JavaScript -->
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    
+    <script>
+    $(function(){
+        
+    /*  $(".first").hide();
+        $(".second").hide();
+        $(".third").hide();*/
+        
+        $(".primeiro").hide();
+        $(".segundo").hide();
+        $(".terceiro").hide();
+        $(".quarto").hide();
+        $(".quinto").hide();
+        $(".sexto").hide();
+        $(".setimo").hide();
+        $(".oitavo").hide();
+        $(".nono").hide();
+        
+        setTimeout(function(){
+        $(".primeiro").fadeIn(2000);} , 300);
+        
+        setTimeout(function(){
+        $(".segundo").fadeIn(2000);} , 800);
+        
+        setTimeout(function(){
+        $(".terceiro").fadeIn(2000);} , 1300);
+        
+        setTimeout(function(){
+        $(".quarto").fadeIn(2000);} , 1800);
+        
+        setTimeout(function(){
+        $(".quinto").fadeIn(2000);} , 2300);
+        
+        setTimeout(function(){
+        $(".sexto").fadeIn(2000);} , 2800);
+        
+        setTimeout(function(){
+        $(".setimo").fadeIn(2000);} , 3300);
+        
+        setTimeout(function(){
+        $(".oitavo").fadeIn(2000);} , 3800);
+        
+        setTimeout(function(){
+        $(".nono").fadeIn(2000);} , 4300);
+
+    });
+    
+</script>
+
+
+ <script src="https://maps.googleapis.com/maps/api/js"></script>
+    
+</head>
+
+<body>
+    <div class="container">
+    
+            <a href="http://quickstart.local/acesso"><p style="float:right; padding-right: 20px; padding-top: 20px;">Acesso administrativo</p></a>
+    
+    <table width="100%">
+        
+    <tr>
+        
+        <td align="center">
+        <img src="images/Untitled.png">
+        </td>
+        
+        <td align="center">
+            
+            <a href="index.php" align="center" style="text-decoration: none; color: #5196D5;"><h1>Copiadora Montes Claros</h1></a>      
+        <ul class="menu1">
+    <li><a href="http://quickstart.local/copiadora">Serviços</a></li>
+    <li><a href="http://quickstart.local/contato">Contato</a></li>
+    <li class="lastItem"><a href="http://quickstart.local/address">Endereço</a></li>
+        </ul>   
+        </td>
+        
+        <td align="center">
+        <img src="images/Untitled.png">
+        </td>
+        
+    </tr>
+    </table>
+
+    </div>
+    
+    <br><br>
+
+    @yield('content')
+    
+    <br><br><br><br><br><br><div style="text-align:center"><p>Rua Coronel Altino de Freitas, 399 - Montes Claros - MG, 39400-023</p>
+<p>(38) 3221-0798</p></div>
+
+<!--<br><br><br><a href="loginadmin.php"><p style="float:right;">acesso administrativo</p></a>-->
+<br><br><br>
+
+</body>
+</html>
