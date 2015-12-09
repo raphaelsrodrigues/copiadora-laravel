@@ -12,7 +12,7 @@
     echo "path name: " .$pathname;
     echo "<hr>";
     echo "url name: " .$urlname;
-     echo "<hr>";
+    echo "<hr>";
 }
 
 ?>
@@ -23,7 +23,7 @@
     // echo "path name: " .$value;
     // echo "<hr>";
     // echo "url name: " .$data;
-     // echo "<hr>";
+    // echo "<hr>";
 }
 // 
 // ?>
