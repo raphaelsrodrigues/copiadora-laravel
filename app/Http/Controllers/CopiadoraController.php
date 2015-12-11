@@ -403,8 +403,6 @@ return view('inserirsaida'); }
     
     return view('errors',
         ['mensagem' => $mensagem]);
-    
-    
 }
 
   }
@@ -431,13 +429,11 @@ return view('inserirsaida'); }
     
             if(count($sql)===1){
             
-                    
                 $controle = ControleCaixa::where('Data', ''.$dataid.'')->first();           
                 $dateID = $controle->IDda;
                 $diatras = $dateID - 1;
                 $yesterday = ControleCaixa::where('IDda', ''.$diatras.'')->first();
                 
-
       $result =
       
       "<h3 align='center'>" .$controle->Data. "</h3>
@@ -715,7 +711,6 @@ return view('inserirsaida'); }
 
         return view('allcosts',
         ['custos' => $custos]);
-        
      
     }
      
