@@ -49,7 +49,11 @@
                       </thead>
                     <tbody>
                 
-                <?php
+                <?php // foreach ($acessos as $acesso) :
+                //<tr>
+                   // <? echo $acesso->Nome
+               // </tr>
+               
                 foreach ($acessos as $acesso) {
                     
                 echo "<tr class='item_row'>";
